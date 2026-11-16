@@ -1,0 +1,10 @@
+
+{
+  "target": "skin",
+  "model": 247,
+  "kind": "livery",
+  "github": "https://github.com/InfinityPR/SAFG-World/pull/REPLACE",
+  "textures": ["bikera"],
+  "image": "bikera.png",
+  "uniform": "gTexture"
+}
