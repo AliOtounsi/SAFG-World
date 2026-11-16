@@ -3,7 +3,7 @@
   "target": "skin",
   "model": 247,
   "kind": "livery",
-  "github": "https://github.com/InfinityPR/SAFG-World/pull/4",
+  "github": "https://github.com/InfinityPR/SAFG-World/pull/5",
   "textures": ["bikera"],
   "image": "bikera.png",
   "uniform": "gTexture"
