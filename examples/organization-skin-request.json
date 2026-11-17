@@ -1,0 +1,11 @@
+{
+  "organization": "Example Gang",
+  "target": "skin",
+  "kind": "livery",
+  "model": 285,
+  "github": "https://github.com/InfinityPR/SAFG-World/pull/123",
+  "textures": [
+    "swat"
+  ],
+  "image": "swat.png"
+}
