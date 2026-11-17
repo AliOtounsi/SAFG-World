@@ -3,16 +3,64 @@
 Community submissions for SAFG:RPG. Fork this repository and open a pull request.
 
 **New here? [Read the step-by-step player guide](docs/PLAYER-GUIDE.md)** for
-forking, uploading shader files, opening a PR, requesting approval in game,
-and submitting organization bases. No command-line tools required.
+forking, uploads, PRs and requesting in-game approval.
 
-## Organization bases — manual placement
+## Gang/squad skin shaders and base maps
 
-Use the **Organization base request** issue form. Include the organization name,
-your account, outside entrance coordinates, interior/dimension and screenshots.
-Put optional map files under `bases/<organization>/<request>/`. Staff review the
-request and manually place/deploy approved bases. Merging a base submission does
-not automatically put it on the live server.
+Leaders request these in **Level Settings > Skins & Base** in game. They use
+organization rewards, not donation points. Keep the organization name exactly
+as shown in game. Each request needs a unique release key and its SAFG-World PR
+URL. Two approvals are required: GitHub review/merge by InfinityPR, followed by
+in-game management approval after the publisher has deployed the release.
+Unmerged PRs never activate anything. Pending/denied edits keep the old approved
+settings active.
+
+### Skin shaders
+
+Use `shaders/<unique-release-key>/request.json` and a PNG/DDS livery texture;
+copy `examples/organization-skin-request.json`. Set `organization` and the exact
+GTA skin `model`. Organization requests use `target: "skin"`, `kind: "livery"`.
+The optional FX follows the existing shader review rules below.
+
+In game, enter the release key and PR URL against the corresponding spawn/skin
+slot. Shaders unlock with that spawn (Levels 1, 5 and 7); its second skin also
+requires Level 4. Approved organization level payments and spawn rank permissions
+still apply. Changing the spawn's skin requires a release for the new model.
+Shaders do not grant a model or spawn permission. Personal donated liveries keep
+precedence over organization liveries.
+
+### Base maps
+
+Create `bases/<unique-release-key>/request.json` and a converter-exported `.lua`
+file; copy `examples/base-request.json` and `examples/base.lua`. The schema is:
+`organization`, `github`, `level`, `map` (a plain local filename).
+
+| Required organization level | Maximum original .lua size |
+| --- | --- |
+| 2 | 75 KB |
+| 3 | 100 KB |
+| 4 | 150 KB |
+| 5 | 200 KB |
+| 6 | 250 KB |
+| 7 | 300 KB |
+
+KB means 1,024 bytes; comments and converter wrappers count toward the limit.
+The importer reads literal `local objects = {...}` and optional
+`local removals = {...}` arrays. It **never executes uploaded Lua**. Custom
+functions, timers, shaders, vehicles, peds and script side effects are not
+imported. Only the converter object/removal data is used. Up to 4,000 objects,
+512 removals, scale 0.05?10, and removal radius up to 150m are supported.
+
+Object columns: `model,x,y,z,rx,ry,rz,scale,breakable,doubleSided,collisions,alpha,interior,dimension,frozen`.
+The first seven are required; remaining columns are optional in that order.
+Removal columns: `model,radius,x,y,z,interior`.
+
+Open a PR, update `github` to that PR's URL and push. Enter its release key and
+URL in the in-game Base field and submit settings. After review, merge and
+publication to SAFGmaps, managers can approve it. Only the approved base is
+instantiated, and only while the organization has its required paid level and
+size allowance. Existing manually placed bases are not replaced or removed by
+this workflow; coordinate replacement of those with staff.
 
 ## Donation vehicle and skin shaders
 
@@ -47,11 +95,8 @@ Texture validation is not proof that an arbitrary FX is fast or crash-free;
 maintainers must test custom effects in MTA before merging.
 
 Run `python -m pip install -r tools/requirements.txt` then
-`python tools/validate.py --world .` to check shader data. CI validates submissions
-without deployment secrets. Bases are never included in automatic shader imports.
+`python tools/validate.py --world .` to check shader and base data. CI validates submissions without deployment secrets.
+The private publisher creates pinned shader assets and base data, never executable map scripts.
 
 Standard skin/vehicle liveries only require `request.json` plus one PNG/DDS.
-Omit the `fx` property: the server supplies its shared `livery.fx` automatically.
-Custom FX effects still need their reviewed shader file. See
-[the image-only skin example](examples/skin-request.json). Existing immutable
-releases must remain unchanged; submit a new release key for changes.
+Omit `fx` to use the server-supplied shader. Custom effects need reviewed FX.

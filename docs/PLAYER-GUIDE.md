@@ -196,21 +196,36 @@ the in-game approval assigns a published shader to your account/vehicle.
 One livery and one FX effect can be assigned per vehicle or per account/skin model.
 A new approval for the same slot replaces that slot's assignment.
 
-## Organization base requests
+## Gang/squad world rewards
 
-Bases use a separate, **manual** review and placement process.
+These are organization rewards requested by leaders in **Level Settings > Skins & Base**,
+not personal donation purchases.
 
-1. Prepare screenshots and the entrance's **x, y, z, rotation, interior, and
-   dimension**, plus the organization name and leader's game account name.
-2. If supplying map files, follow step 1 to fork/create a branch. Put your files
-   under `bases/YOUR-ORGANIZATION/YOUR-REQUEST/`, with a short README explaining
-   placement, entrances, and any required assets. Open a PR to official main as
-   in step 3. Shader `request.json` is not needed for a base.
-3. Open [Organization base request](https://github.com/InfinityPR/SAFG-World/issues/new?template=organization-base.yml).
-4. Complete the form, attach screenshots, and link your map PR. If you need help
-   preparing files, explain that in the form rather than inventing a PR URL.
-5. Staff discuss, review, and arrange approved placement/deployment manually.
-   A merged base PR does **not** automatically place the base in game.
+1. Fork/create a submission branch as above. For a skin livery, copy
+   [organization-skin-request.json](../examples/organization-skin-request.json)
+   into `shaders/YOUR-NEW-RELEASE-KEY/request.json` and upload its PNG/DDS.
+   Set the exact organization name and GTA skin model. For a base, copy
+   [base-request.json](../examples/base-request.json) into
+   `bases/YOUR-NEW-RELEASE-KEY/request.json` and upload the local `.lua` converter
+   export named by `map`.
+2. Base source limits: Level 2 **75 KB**, Level 3 **100 KB**, Level 4 **150 KB**,
+   Level 5 **200 KB**, Level 6 **250 KB**, Level 7 **300 KB** (1 KB = 1,024 bytes).
+   The importer reads only literal objects/removals; it never runs uploaded Lua.
+3. Open a PR. Put that exact PR URL into `github` in request.json and push the
+   edit to the same branch. Keep old releases unchanged; use a new key for revisions.
+4. Enter the key and PR URL in the in-game tab. Skin requests must match a
+   configured spawn/skin slot. Submit your Level Settings for management review.
+5. InfinityPR reviews and merges the GitHub PR. The publisher deploys its pinned
+   assets. A gang manager then approves the in-game settings. GitHub merge alone
+   does not activate organization rewards.
+6. Skin shaders unlock with the configured spawn (Levels 1, 5, 7); a second skin
+   also requires Level 4. Bases require the submitted level/size allowance.
+   Paid level requirements still apply. A pending/denied edit leaves the previous
+   approved settings active. Existing manually placed bases stay untouched.
+
+See the [full map format and limits](../README.md#base-maps). Contact staff if your
+map requires unsupported scripting or if an existing manually placed base needs
+replacement. Do not include passwords or credentials in public submissions.
 
 ## Common problems
 
