@@ -1,0 +1,10 @@
+{
+  "target": "skin",
+  "model": 303,
+  "kind": "livery",
+  "github": "https://github.com/InfinityPR/SAFG-World/pull/7",
+  "textures": [
+    "andre"
+  ],
+  "image": "andre.png"
+}
