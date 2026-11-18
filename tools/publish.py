@@ -14,6 +14,7 @@ import xml.etree.ElementTree as ET
 from PIL import Image
 
 REPOSITORY = 'InfinityPR/SAFG-World'
+TRUSTED_MERGERS = frozenset(('InfinityPR', 'roskata729'))
 KEY = re.compile(r'[a-z0-9][a-z0-9_-]{0,63}\Z')
 TEXTURE = re.compile(r'[A-Za-z0-9_.*?-]{1,64}\Z')
 UNIFORM = re.compile(r'[A-Za-z_][A-Za-z0-9_]{0,63}\Z')
@@ -123,10 +124,10 @@ def github(path):
 def verify_merge(world,key,release,files,category="shaders"):
     number=release['github'].rsplit('/',1)[1]
     pull=github('pulls/'+number)
-    require(pull.get('merged') is True and pull.get('merged_by',{}).get('login')=='InfinityPR'
+    require(pull.get('merged') is True and pull.get('merged_by',{}).get('login') in TRUSTED_MERGERS
         and pull.get('base',{}).get('ref')=='main'
         and pull.get('base',{}).get('repo',{}).get('full_name')==REPOSITORY,
-        'Shader PR must be merged into SAFG-World main by InfinityPR: '+key)
+        'Shader PR must be merged into SAFG-World main by InfinityPR or roskata729: '+key)
     require(type(pull.get('changed_files'))is int and pull['changed_files']<=100,'Submit at most 100 changed files per PR')
     records=github('pulls/'+number+'/files?per_page=100')
     require(isinstance(records,list),'PR file inventory is unavailable')

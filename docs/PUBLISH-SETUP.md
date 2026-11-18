@@ -1,6 +1,6 @@
 # Immediate shader publishing (maintainer setup)
 
-After InfinityPR merges a PR into main, **Publish merged shaders** starts the
+After InfinityPR or roskata729 merges a PR into main, **Publish merged shaders** starts the
 private publisher immediately. That publisher validates all immutable release
 keys, the maintainer merge and exact asset hashes, then deploys only
 SAFGworldShaders. No PR code is checked out or executed by the dispatch workflow.
