@@ -15,7 +15,8 @@ jobs:
       github.repository == 'InfinityPR/SAFG-World' &&
       (github.event_name == 'workflow_dispatch' ||
        (github.event.pull_request.merged == true &&
-        github.event.pull_request.merged_by.login == 'InfinityPR'))
+        (github.event.pull_request.merged_by.login == 'InfinityPR' ||
+         github.event.pull_request.merged_by.login == 'roskata729')))
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
