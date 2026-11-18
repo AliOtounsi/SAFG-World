@@ -1,8 +1,11 @@
 name: Organization base request
-description: Request manual placement of a gang or squad base.
+description: Get help with a gang/squad base submission or a manually placed legacy base.
 title: "[Base] Organization name"
 labels: [organization-base]
 body:
+  - type: markdown
+    attributes:
+      value: "For reviewed map uploads, submit a SAFG-World PR and request it in game via Level Settings > Skins & Base. See the README for levels, size limits and the converter format. This issue is for help and legacy placement changes."
   - type: input
     id: organization
     attributes: {label: Organization name}
